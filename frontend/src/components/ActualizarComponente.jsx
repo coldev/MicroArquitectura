@@ -25,6 +25,12 @@ class ActualizarComponente extends Component {
         });
     }
 
+    maxLengthCheck = (object) => {
+        if (object.target.value.length > object.target.maxLength) {
+         object.target.value = object.target.value.slice(0, object.target.maxLength)
+          }
+        }
+
     ActualizarDatos = (e) => {
         e.preventDefault();
         let Datacredito = {tipo_documento: this.state.tipo_documento, documento: this.state.documento};
@@ -60,12 +66,12 @@ class ActualizarComponente extends Component {
                                     <form>
                                         <div className = "form-group">
                                             <label> Tipo Documento: </label>
-                                            <input placeholder="tipo documento" name="tipo_documento" className="form-control" 
+                                            <input placeholder="tipo documento" name="tipo_documento" className="form-control" maxLength="2"
                                                 value={this.state.tipodocumento} onChange={this.Cambiartipodocumento}/>
                                         </div>
                                         <div className = "form-group">
                                             <label> Documento: </label>
-                                            <input placeholder="documento" name="documento" className="form-control" 
+                                            <input placeholder="documento" name="documento" className="form-control" maxLength="30" type='number' onInput={this.maxLengthCheck}
                                                 value={this.state.documento} onChange={this.Cambiardocumento}/>
                                         </div>                                       
 
