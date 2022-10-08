@@ -1,2 +1,3 @@
-# MicroArquitectura
- Microservicios - Micro FrontEnd - Java - REST -  REACT
+# MicroArquitectura 
+ 
+ Microservices - Frontend - Sprint boot - Restfull - React  
