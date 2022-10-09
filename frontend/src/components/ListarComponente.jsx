@@ -36,6 +36,26 @@ class ListarComponente extends Component {
         this.props.history.push('/adicionar-Datacredito/_add');
     }
 
+    ObtenerTipoIdentificacion= (tipo)  =>
+    {
+        if (tipo === 'CC' )                 
+         return 'Cédula de ciudadanía';
+
+        if (tipo === 'CE' )                 
+         return 'Cédula de Extranjería';
+
+        if (tipo === 'PA' )                 
+         return 'Pasaporte';
+
+        if (tipo === 'TI' )                 
+         return 'Tarjeta de identidad';
+ 
+        if (tipo === 'RC' )                 
+         return 'Registro civil'; 
+
+        return '';
+    }
+
     render() {
         return (
             <div>
@@ -59,8 +79,8 @@ class ListarComponente extends Component {
                                     this.state.Datacreditos.map(
                                         Datacredito => 
                                         <tr key = {Datacredito.id}>
-                                             <td> { Datacredito.tipo_documento} </td>   
-                                             <td> {Datacredito.documento}</td>                                             
+                                             <td> { this.ObtenerTipoIdentificacion(Datacredito.tipo_documento) } </td>   
+                                             <td> { Datacredito.documento }</td>                                             
                                              <td>
                                                  <button style={{marginLeft: "40px"}} onClick={ () => this.viewDatacredito(Datacredito.id)} className="btn btn-warning">Consultar </button>
                                                  <button style={{marginLeft: "40px"}} onClick={ () => this.editDatacredito(Datacredito.id)} className="btn btn-info">Actualizar </button>

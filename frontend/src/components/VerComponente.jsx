@@ -12,6 +12,28 @@ class VerComponente extends Component {
         }
     }
 
+
+    ObtenerTipoIdentificacion= ()  =>
+    {
+        if (this.state.Datacredito.tipo_documento === 'CC' )                 
+         return 'Cédula de ciudadanía';
+
+        if (this.state.Datacredito.tipo_documento === 'CE' )                 
+         return 'Cédula de Extranjería';
+
+        if (this.state.Datacredito.tipo_documento === 'PA' )                 
+         return 'Pasaporte';
+
+        if (this.state.Datacredito.tipo_documento === 'TI' )                 
+         return 'Tarjeta de identidad';
+ 
+        if (this.state.Datacredito.tipo_documento === 'RC' )                 
+         return 'Registro civil'; 
+
+        return '';
+    }
+
+
     componentDidMount(){
         Servicio.getDatacreditoById(this.state.id).then( res => {
             this.setState({Datacredito: res.data});
@@ -27,7 +49,7 @@ class VerComponente extends Component {
                     <div className = "card-body">
                         <div className = "row">
                             <label> Tipo Documento :  </label>
-                            <div> { this.state.Datacredito.tipo_documento }</div>
+                            <div> { this.ObtenerTipoIdentificacion() }</div>
                         </div>
                         <div className = "row">
                             <label> Documento :  </label>

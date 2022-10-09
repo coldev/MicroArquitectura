@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import Servicio from '../services/Servicio';
-
+ 
 class CrearComponente extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            // step 2
+             
             id: this.props.match.params.id,
             tipo_documento: '',
             documento: ''           
@@ -16,10 +16,10 @@ class CrearComponente extends Component {
         this.ActualizarDatos = this.ActualizarDatos.bind(this);
     }
 
-    // step 3
-    componentDidMount(){
 
-        // step 4
+   
+    componentDidMount(){
+        
         if(this.state.id === '_add'){
             return
         }else{
@@ -39,12 +39,32 @@ class CrearComponente extends Component {
           }
         }
 
+    
+    ValidarDatos= ()  =>
+    {
+        if (this.state.tipo_documento.trim().length === 0 ||
+            this.state.documento.trim().length === 0  )
+        {
+         alert('Datos no válidos.');   
+         return false;
+        }
+
+         return true;
+    }
+
+
     ActualizarDatos = (e) => {
         e.preventDefault();
+
+        if (! this.ValidarDatos())
+        {            
+            return;
+        }
+
         let Datacredito = {tipo_documento: this.state.tipo_documento, documento: this.state.documento};
         console.log('Datacredito => ' + JSON.stringify(Datacredito));
 
-        // step 5
+        
         if(this.state.id === '_add'){
             Servicio.createDatacredito(Datacredito).then(res =>{
                 this.props.history.push('/Datacreditos');
@@ -91,14 +111,22 @@ class CrearComponente extends Component {
                                     <form>
                                         <div className = "form-group">
                                             <label> Tipo Documento: </label>
-                                            <input placeholder="tipo documento" name="tipo_documento" className="form-control" maxLength="2"
-                                                value={this.state.tipo_documento} onChange={this.Cambiartipodocumento}/>
-                                        </div>
+                                            <select name="tipo_documento" value={this.state.tipo_documento} onChange={this.Cambiartipodocumento} className="form-control">
+                                                <option value="" selected>Seleccione</option>
+                                                <option value="CC">Cédula de ciudadanía</option>
+                                                <option value="CE">Cédula de Extranjería</option>
+                                                <option value="PA">Pasaporte</option>
+                                                <option value="TI">Tarjeta de identidad</option>
+                                                <option value="RC">Registro civil</option>
+                                            </select>
+                                        </div> 
+                                        
                                         <div className = "form-group">
                                             <label> Documento: </label>
                                             <input placeholder="documento" name="documento" className="form-control" maxLength="30" type='number' onInput={this.maxLengthCheck}
                                                 value={this.state.documento} onChange={this.Cambiardocumento}/>
-                                        </div>                                       
+                                        </div> 
+                                                                              
 
                                         <button className="btn btn-success" onClick={this.ActualizarDatos}>Grabar</button>
                                         <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancelar</button>
